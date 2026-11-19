@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f3f5f2">
+<title>Issaq's 12-Week Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+<style>
+:root{
+  --bg:#f3f5f2; --surface:#ffffff; --surface-2:#eef1ec; --line:#e2e6df;
+  --ink:#1d2622; --ink-2:#4f5c55; --ink-3:#7c8881;
+  --accent:#3f7a64; --accent-soft:#e3efe8; --accent-ink:#2c5a49;
+  --warn:#b4632e; --warn-soft:#f8ebe1;
+  --push:#e9eef7; --push-ink:#40557e; --pull:#efe9f5; --pull-ink:#5e4a7c; --legs:#f6eee3; --legs-ink:#7a5a33; --rest:#eef1ec;
+  --radius:18px; --radius-sm:12px;
+  --shadow:0 1px 2px rgba(29,38,34,.04), 0 8px 24px rgba(29,38,34,.06);
+  --nav-h:68px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 16px)}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+a{color:var(--accent-ink)}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px}
+i.ph,i.ph-fill{line-height:1}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:rgba(243,245,242,.88);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
+.top.scrolled{border-bottom-color:var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em}
+.brand .mark{width:34px;height:34px;border-radius:11px;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:18px}
+.top .date{font-size:13px;color:var(--ink-3);font-weight:500}
+
+/* views */
+.view{display:none;animation:fade .28s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.view{animation:none}}
+.page-title{font-size:28px;line-height:1.15;letter-spacing:-.025em;font-weight:800;margin:22px 0 4px}
+.page-sub{color:var(--ink-2);margin:0 0 18px;font-size:15px}
+h3.sec{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin:28px 0 10px}
+
+/* cards */
+.card{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+.card + .card{margin-top:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{background:var(--surface);border-radius:var(--radius-sm);box-shadow:var(--shadow);padding:14px}
+.stat small{display:block;color:var(--ink-3);font-size:12px;font-weight:600}
+.stat b{display:block;font-size:22px;letter-spacing:-.02em;margin-top:2px}
+.stat span{font-size:12px;color:var(--ink-2)}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;background:var(--accent-soft);color:var(--accent-ink)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.muted{color:var(--ink-2)}
+.small{font-size:13px}
+
+/* hero today */
+.today{position:relative;overflow:hidden;background:var(--ink);color:#fff;border-radius:22px;padding:20px;box-shadow:var(--shadow)}
+.today .eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.today h2{margin:6px 0 4px;font-size:24px;letter-spacing:-.02em;line-height:1.2}
+.today p{margin:0;opacity:.8;font-size:14px}
+.today .row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border-radius:12px;font-weight:700;font-size:14px}
+.btn.light{background:#fff;color:var(--ink)}
+.btn.ghost{background:rgba(255,255,255,.12);color:#fff}
+.btn.solid{background:var(--accent);color:#fff}
+.btn.outline{background:var(--surface);border:1px solid var(--line)}
+.btn:active{transform:scale(.98)}
+.progress{height:6px;border-radius:99px;background:rgba(255,255,255,.16);margin-top:16px;overflow:hidden}
+.progress > i{display:block;height:100%;background:#9fd1bb;border-radius:99px}
+
+/* profile */
+.profile{display:flex;gap:14px;align-items:center}
+.avatar{width:54px;height:54px;border-radius:16px;background:var(--accent-soft);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:20px;flex:none}
+.profile h2{margin:0;font-size:20px;letter-spacing:-.02em}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
+.facts div{background:var(--surface-2);border-radius:12px;padding:10px 8px;text-align:center}
+.facts small{display:block;font-size:11px;color:var(--ink-3);font-weight:600}
+.facts b{font-size:15px}
+
+/* bmi gauge */
+.gauge{position:relative;height:10px;border-radius:99px;margin:18px 0 8px;background:linear-gradient(90deg,#d9e6f2 0 5%,#cfe7da 5% 85%,#f2e3cf 85% 95%,#f0d6cf 95%)}
+.gauge .needle{position:absolute;top:-6px;width:4px;height:22px;border-radius:4px;background:var(--ink);transform:translateX(-50%)}
+.gauge-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-3);font-weight:600}
+
+/* goal list */
+.goal{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.goal:first-of-type{border-top:0;padding-top:4px}
+.goal .ic{width:36px;height:36px;border-radius:11px;background:var(--surface-2);display:grid;place-items:center;font-size:18px;color:var(--accent-ink);flex:none}
+.goal b{display:block;font-size:15px}
+.goal span{font-size:14px;color:var(--ink-2)}
+
+/* segmented + chips */
+.seg{display:flex;background:var(--surface-2);border-radius:12px;padding:4px;gap:4px}
+.seg button{flex:1;min-height:38px;border-radius:9px;font-size:13px;font-weight:700;color:var(--ink-2)}
+.seg button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(29,38,34,.1)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none;margin:0 -16px;padding-left:16px;padding-right:16px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;min-width:58px;padding:9px 10px;border-radius:14px;background:var(--surface);box-shadow:var(--shadow);text-align:center}
+.chip small{display:block;font-size:11px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
+.chip b{display:block;font-size:13px;margin-top:2px}
+.chip.on{background:var(--ink);color:#fff}
+.chip.on small{color:rgba(255,255,255,.65)}
+
+/* day header */
+.dayhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0 10px}
+.dayhead h2{margin:0;font-size:20px;letter-spacing:-.02em}
+.tag{display:inline-block;padding:3px 9px;border-radius:8px;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.tag.push{background:var(--push);color:var(--push-ink)} .tag.pull{background:var(--pull);color:var(--pull-ink)} .tag.legs{background:var(--legs);color:var(--legs-ink)} .tag.rest{background:var(--rest);color:var(--ink-2)}
+.note{display:flex;gap:10px;align-items:flex-start;background:var(--accent-soft);color:var(--accent-ink);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;margin:10px 0}
+.note.warn{background:var(--warn-soft);color:var(--warn)}
+.note i{font-size:18px;margin-top:2px;flex:none}
+
+/* tables */
+.tablecard{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{text-align:left;font-size:11px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em;padding:12px 8px;background:var(--surface-2)}
+thead th:first-child{padding-left:12px}
+tbody td{padding:12px 8px;border-top:1px solid var(--line);vertical-align:top}
+tbody td:first-child{padding-left:12px}
+tbody tr.ex{cursor:pointer}
+tbody tr.ex:hover td{background:#fafbf9}
+.exname{font-weight:700;font-size:14px;line-height:1.3;display:block}
+.exname + .sub{font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:4px;margin-top:3px}
+.group{font-weight:600;color:var(--ink-2)}
+.reps b{display:block;font-size:14px;white-space:nowrap}
+.reps span{font-size:11px;color:var(--ink-3);white-space:nowrap}
+.vid{display:block;width:60px;border-radius:9px;overflow:hidden;position:relative;aspect-ratio:16/10;background:var(--surface-2)}
+.vid img{width:100%;height:100%;object-fit:cover;display:block}
+.vid i{position:absolute;inset:0;margin:auto;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.92);color:#c4302b;display:grid;place-items:center;font-size:13px}
+tr.ex.done .exname{text-decoration:line-through;color:var(--ink-3)}
+tr.detail td{background:var(--surface-2);border-top:0;padding:4px 12px 16px}
+tr.detail[hidden]{display:none}
+.why h4{margin:12px 0 4px;font-size:13px;color:var(--ink)}
+.why p,.why li{font-size:14px;color:var(--ink-2);margin:0}
+.why ul{margin:0;padding-left:18px}
+.why li + li{margin-top:2px}
+.why .actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.check{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;border-radius:11px;background:var(--surface);border:1px solid var(--line);font-weight:700;font-size:13px}
+.check.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.meal-n{width:28px;height:28px;border-radius:9px;background:var(--accent-soft);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:13px}
+.food b{display:block;font-size:14px;line-height:1.3}
+.food span{display:block;font-size:12px;color:var(--ink-3);margin-top:2px}
+.macros{display:flex;flex-direction:column;gap:2px;font-size:12px;white-space:nowrap}
+.macros b{font-size:13px}
+.qty{font-size:12px;color:var(--ink-2)}
+.qty li{list-style:none}
+.qty ul{margin:0;padding:0}
+tr.meal.done .food b{text-decoration:line-through;color:var(--ink-3)}
+
+/* macro rings */
+.rings{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+.ring{position:relative;width:64px;height:64px;margin:0 auto}
+.ring svg{transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:13px}
+.rings small{display:block;font-size:11px;font-weight:700;color:var(--ink-3);margin-top:6px;text-transform:uppercase;letter-spacing:.05em}
+
+/* water */
+.water{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.glass{width:38px;height:44px;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;font-size:18px;color:var(--ink-3)}
+.glass.on{background:#dcebf5;color:#3e6f93}
+
+/* timeline */
+.week{display:flex;gap:12px;align-items:stretch;padding:12px 14px;background:var(--surface);border-radius:var(--radius-sm);box-shadow:var(--shadow);margin-top:8px;width:100%;text-align:left}
+.week .num{width:40px;flex:none;text-align:center;border-radius:10px;padding:6px 0}
+.week .num small{display:block;font-size:10px;font-weight:700;opacity:.7}
+.week .num b{font-size:17px}
+.week.m1 .num{background:var(--push);color:var(--push-ink)} .week.m2 .num{background:var(--pull);color:var(--pull-ink)} .week.m3 .num{background:var(--legs);color:var(--legs-ink)} .week.m4 .num{background:var(--accent-soft);color:var(--accent-ink)}
+.week .info b{display:block;font-size:14px}
+.week .info span{font-size:13px;color:var(--ink-2)}
+.week.now{outline:2px solid var(--accent)}
+.week.past{opacity:.6}
+.phase{border-left:3px solid var(--accent);padding:2px 0 2px 14px;margin:18px 0 6px}
+.phase b{display:block;font-size:16px}
+.phase span{font-size:14px;color:var(--ink-2)}
+
+/* weight log */
+.form{display:flex;gap:8px}
+.form input{flex:1;min-width:0;min-height:46px;border-radius:12px;border:1px solid var(--line);background:var(--surface);padding:0 14px;font:inherit;font-size:16px;color:var(--ink)}
+.form input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.log{margin-top:12px}
+.log .r{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.log .r button{color:var(--ink-3);font-size:18px;width:32px;height:32px}
+
+/* accordion */
+.acc{background:var(--surface);border-radius:var(--radius-sm);box-shadow:var(--shadow);margin-top:10px;overflow:hidden}
+.acc summary{list-style:none;display:flex;align-items:center;gap:12px;padding:15px 16px;cursor:pointer;font-weight:700;font-size:15px}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary .ic{width:36px;height:36px;border-radius:11px;background:var(--surface-2);display:grid;place-items:center;font-size:18px;color:var(--accent-ink);flex:none}
+.acc summary .chev{margin-left:auto;color:var(--ink-3);transition:transform .2s}
+.acc[open] summary .chev{transform:rotate(180deg)}
+.acc .body{padding:0 16px 16px;color:var(--ink-2);font-size:15px}
+.acc .body p{margin:0 0 10px}
+.acc .body ul{margin:0 0 10px;padding-left:18px}
+.acc .body b{color:var(--ink)}
+.tempo{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.tempo div{background:var(--surface-2);border-radius:12px;padding:10px;text-align:center}
+.tempo b{display:block;font-size:20px;color:var(--ink)}
+.tempo span{font-size:12px}
+
+.src li{font-size:13px;color:var(--ink-2);margin-bottom:6px}
+
+/* bottom nav */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(255,255,255,.94);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs .wrap{display:grid;grid-template-columns:repeat(5,1fr);height:var(--nav-h)}
+nav.tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;font-weight:700;color:var(--ink-3)}
+nav.tabs button i{font-size:23px}
+nav.tabs button.on{color:var(--ink)}
+nav.tabs button.on i{color:var(--accent)}
+
+footer{text-align:center;font-size:12px;color:var(--ink-3);margin:30px 0 10px}
+@media (min-width:560px){.page-title{font-size:32px}}
+.tablecard{overflow-x:auto}
+@media (max-width:430px){
+  table{font-size:12px}
+  thead th,tbody td{padding-left:5px;padding-right:5px}
+  thead th{font-size:10px;letter-spacing:.03em}
+  .exname{font-size:13px}
+  .vid{width:40px}
+  .vid i{width:20px;height:20px;font-size:11px}
+  td.group{width:62px;font-size:11px}
+  td.tgt{overflow-wrap:anywhere;hyphens:auto}
+}
+@media (max-width:360px){.facts b{font-size:14px}}
+</style>
+</head>
+<body>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <div class="brand"><span class="mark"><i class="ph-fill ph-barbell"></i></span>Issaq's Plan</div>
+    <span class="date" id="todayLabel"></span>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- HOME -->
+<section class="view active" id="view-home">
+  <h1 class="page-title">Hey Issaq.</h1>
+  <p class="page-sub">Your 12-week muscle plan, plus one easy final week. 23 Nov 2026 to 21 Feb 2027.</p>
+
+  <div class="today" id="todayCard"></div>
+
+  <h3 class="sec">User details</h3>
+  <div class="card">
+    <div class="profile">
+      <div class="avatar">IK</div>
+      <div><h2>Issaq Khan</h2><span class="muted small">Beginner lifter · trains 6 days a week</span></div>
+    </div>
+    <div class="facts">
+      <div><small>Age</small><b>17</b></div>
+      <div><small>Sex</small><b>Male</b></div>
+      <div><small>Height</small><b>5'7"</b></div>
+      <div><small>Weight</small><b>63 kg</b></div>
+    </div>
+    <p class="small muted" style="margin:12px 0 0">5'7" is 170 cm.</p>
+  </div>
+
+  <h3 class="sec">BMI</h3>
+  <div class="card">
+    <div style="display:flex;align-items:baseline;justify-content:space-between">
+      <div><b style="font-size:34px;letter-spacing:-.03em">21.8</b> <span class="muted small">kg/m²</span></div>
+      <span class="pill"><i class="ph ph-check-circle"></i>Healthy</span>
+    </div>
+    <div class="gauge"><span class="needle" style="left:59%"></span></div>
+    <div class="gauge-labels"><span>Under</span><span>Healthy</span><span>Over</span></div>
+    <p class="small muted" style="margin:14px 0 0">For a 17-year-old, BMI is read against boys of the same age (CDC growth chart). 21.8 sits around the 59th percentile. The healthy zone is the 5th to 85th percentile, so you are right in the middle. BMI cannot tell muscle from fat, so we also track your waist.</p>
+  </div>
+
+  <h3 class="sec">Goal</h3>
+  <div class="card">
+    <div class="goal"><span class="ic"><i class="ph ph-trend-up"></i></span><div><b>Build lean muscle</b><span>Gain about 3 to 4 kg in 13 weeks, mostly muscle. That is 250 to 350 g a week.</span></div></div>
+    <div class="goal"><span class="ic"><i class="ph ph-scales"></i></span><div><b>Keep body fat low</b><span>Eat a small surplus of about 200 to 300 kcal, not a big "bulk". Waist should stay almost the same.</span></div></div>
+    <div class="goal"><span class="ic"><i class="ph ph-arrows-clockwise"></i></span><div><b>Hit every muscle twice a week</b><span>Push, Pull, Legs, then again with different angles. Each part of each muscle is trained 2 times.</span></div></div>
+    <div class="goal"><span class="ic"><i class="ph ph-shield-check"></i></span><div><b>Learn perfect form first</b><span>No injuries, no ego lifting. Strength comes fast when the form is clean.</span></div></div>
+  </div>
+
+  <h3 class="sec">Your numbers</h3>
+  <div class="grid2">
+    <div class="stat"><small>Maintenance</small><b>~2,600</b><span>kcal a day to stay at 63 kg</span></div>
+    <div class="stat"><small>Eat (month 1)</small><b>2,820</b><span>kcal a day</span></div>
+    <div class="stat"><small>Protein</small><b>~145 g</b><span>about 2.3 g per kg</span></div>
+    <div class="stat"><small>Sleep</small><b>8-10 h</b><span>every night</span></div>
+  </div>
+  <p class="small muted" style="margin:12px 2px 0">Maintenance is an estimate (Mifflin-St Jeor formula, BMR about 1,615 kcal, times an activity factor of about 1.6 for a growing, active teen). Your real number shows up in the weekly weigh-ins, and we adjust from there.</p>
+
+  <div class="note warn" style="margin-top:16px"><i class="ph ph-first-aid"></i><div>Show this plan to a parent. If you have any heart, joint or breathing problem, check with a doctor first. Stop any exercise that gives sharp pain (normal muscle burn is fine).</div></div>
+</section>
+
+<!-- TRAIN -->
+<section class="view" id="view-train">
+  <h1 class="page-title">Training</h1>
+  <p class="page-sub">Push, Pull, Legs, twice a week. Sunday is rest.</p>
+  <div class="seg" id="monthSegTrain"></div>
+  <div class="note" id="monthNoteTrain" style="margin-top:12px"></div>
+  <div class="chips" id="dayChips" style="margin-top:12px"></div>
+  <div id="dayView"></div>
+</section>
+
+<!-- EAT -->
+<section class="view" id="view-eat">
+  <h1 class="page-title">Diet plan</h1>
+  <p class="page-sub">Simple home food. Mom's cooking works perfectly.</p>
+  <div class="seg" id="monthSegEat"></div>
+  <div class="card" style="margin-top:12px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:15px">Daily total</b><span class="muted small" id="kcalTotal"></span></div>
+    <div class="rings" id="rings" style="margin-top:14px"></div>
+  </div>
+  <div class="note" id="monthNoteEat"></div>
+  <h3 class="sec">Meals (training days)</h3>
+  <div class="tablecard">
+    <table>
+      <thead><tr><th>#</th><th>Food plan</th><th>Macros</th><th>Quantity</th></tr></thead>
+      <tbody id="mealRows"></tbody>
+    </table>
+  </div>
+  <p class="small muted" style="margin:10px 2px 0">Times assume school in the day and gym around 5:30 pm. Training in the morning? Eat meal 4 an hour before the gym and meal 5 after it, and keep the rest the same. Sunday: eat the same food. Muscles grow on rest days too.</p>
+
+  <h3 class="sec">Water</h3>
+  <div class="card">
+    <b style="font-size:15px">3 litres a day</b> <span class="muted small">· tap a glass (250 ml) when you drink it</span>
+    <div class="water" id="water"></div>
+  </div>
+
+  <h3 class="sec">Swaps (same protein, roughly)</h3>
+  <div class="tablecard">
+    <table>
+      <thead><tr><th>Instead of</th><th>You can have</th></tr></thead>
+      <tbody>
+        <tr><td>100 g chicken (raw)</td><td>100 g chicken kheema, or 100 g lean beef (has more fat, so skip the extra ghee that meal), or 3 whole eggs + 1 egg white</td></tr>
+        <tr><td>1 roti</td><td>75 g cooked rice (about half a katori)</td></tr>
+        <tr><td>1 katori dal</td><td>1 katori boiled chana (cooked chole or kala chana)</td></tr>
+        <tr><td>1 banana</td><td>1 apple + 1 tsp peanut butter</td></tr>
+        <tr><td>Veg sabzi</td><td>Any home sabzi or cooked veg pot. Keep oil to about 1 tsp per katori</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sec">Food rules</h3>
+  <div class="card">
+    <div class="goal"><span class="ic"><i class="ph ph-scales"></i></span><div><b>Weigh chicken raw</b><span>100 g raw boneless chicken gives about 22 g protein. Cooked, it shrinks to about 70 g.</span></div></div>
+    <div class="goal"><span class="ic"><i class="ph ph-drop"></i></span><div><b>Oil and ghee count</b><span>1 tsp = 45 kcal. Use about 1 tsp per curry serving. Deep-fried food only once a week.</span></div></div>
+    <div class="goal"><span class="ic"><i class="ph ph-cookie"></i></span><div><b>Junk food</b><span>Once a week is fine. Daily chips, cold drinks and sweets will add fat, not muscle.</span></div></div>
+    <div class="goal"><span class="ic"><i class="ph ph-pill"></i></span><div><b>No supplements needed</b><span>Real food covers everything. Doctors (American Academy of Pediatrics) advise teens under 18 not to use creatine, fat burners or pre-workouts. Pintola oats are food, so they are fine.</span></div></div>
+  </div>
+</section>
+
+<!-- PLAN -->
+<section class="view" id="view-plan">
+  <h1 class="page-title">3-month plan</h1>
+  <p class="page-sub">13 weeks. Every month gets a little harder.</p>
+  <div id="timeline"></div>
+
+  <h3 class="sec">Weekly check-in</h3>
+  <div class="card">
+    <p class="small muted" style="margin:0 0 12px">Weigh yourself every morning after the toilet, before food. Only the weekly average matters, because daily weight jumps around with water and food.</p>
+    <div class="form">
+      <input type="date" id="wDate" aria-label="Date">
+      <input type="number" id="wKg" inputmode="decimal" step="0.1" min="30" max="150" placeholder="kg" aria-label="Weight in kg">
+      <button class="btn solid" id="wAdd" aria-label="Save weight"><i class="ph ph-plus"></i></button>
+    </div>
+    <div id="wAdvice"></div>
+    <div class="log" id="wLog"></div>
+  </div>
+
+  <h3 class="sec">How to adjust food</h3>
+  <div class="tablecard">
+    <table>
+      <thead><tr><th>Weekly average change</th><th>What to do</th></tr></thead>
+      <tbody>
+        <tr><td>Less than +0.2 kg, 2 weeks in a row</td><td>Add about 150 kcal a day: 1 roti, or 1 banana, or 1 tbsp peanut butter</td></tr>
+        <tr><td>+0.2 to +0.4 kg</td><td>Perfect. Change nothing</td></tr>
+        <tr><td>More than +0.5 kg, 2 weeks in a row</td><td>Remove about 150 kcal a day: 1 roti less, or half the rice at dinner</td></tr>
+        <tr><td>Waist grows more than 1 cm in a month</td><td>Too much fat gain. Remove 150 kcal a day</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted" style="margin:10px 2px 0">Measure your waist at the belly button every 2 weeks. Take a front and side photo on the 1st of each month in the same light.</p>
+</section>
+
+<!-- LEARN -->
+<section class="view" id="view-learn">
+  <h1 class="page-title">Learn</h1>
+  <p class="page-sub">How your body builds muscle, explained simply.</p>
+  <div id="learn"></div>
+
+  <h3 class="sec">Where this comes from</h3>
+  <div class="card">
+    <ul class="src" style="margin:0;padding-left:18px">
+      <li>NSCA youth resistance training position statement (Faigenbaum et al., 2009): supervised training is safe and helps teens when technique comes first.</li>
+      <li>Schoenfeld, Ogborn &amp; Krieger (2017), weekly sets vs muscle growth: more weekly sets give more growth, about 10 or more sets per muscle per week works well. Training a muscle 2 times a week beat 1 time (Schoenfeld et al., 2016).</li>
+      <li>Schoenfeld et al. (2017), low vs high load: muscle grows in a wide rep range when sets are taken close to failure.</li>
+      <li>Adolescent athlete protein reviews: 1.2 to 2.0 g per kg is the usual range, spread over 4 to 5 meals of about 0.3 g per kg.</li>
+      <li>Iraki et al. (2019), off-season nutrition for natural lifters: small surplus and slow weight gain keep fat gain low.</li>
+      <li>American Academy of Sleep Medicine (2016): teens 13 to 18 need 8 to 10 hours of sleep.</li>
+      <li>American Academy of Pediatrics: performance supplements such as creatine are not advised under 18.</li>
+      <li>Food values: USDA FoodData Central and Indian Food Composition Tables (IFCT 2017). Pintola oats: brand label, about 24 g protein per 100 g. Check your pack.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>Made for Issaq Khan · Nov 2026</footer>
+</main>
+
+<nav class="tabs" aria-label="Sections">
+  <div class="wrap">
+    <button data-view="home" class="on"><i class="ph ph-house"></i>Home</button>
+    <button data-view="train"><i class="ph ph-barbell"></i>Train</button>
+    <button data-view="eat"><i class="ph ph-bowl-food"></i>Eat</button>
+    <button data-view="plan"><i class="ph ph-calendar-check"></i>Plan</button>
+    <button data-view="learn"><i class="ph ph-book-open-text"></i>Learn</button>
+  </div>
+</nav>
+
+<script>
+/* ---------- storage (safe) ---------- */
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('ik-' + k); return v ? JSON.parse(v) : d } catch { return d } },
+  set(k, v) { try { localStorage.setItem('ik-' + k, JSON.stringify(v)) } catch {} },
+}
+
+/* ---------- dates ---------- */
+const START = new Date(2026, 10, 23) // Mon 23 Nov 2026
+const END = new Date(2027, 1, 21)    // Sun 21 Feb 2027
+const DAY = 864e5
+const today = new Date(); today.setHours(0, 0, 0, 0)
+const fmt = (d, o = { day: 'numeric', month: 'short' }) => d.toLocaleDateString('en-GB', o)
+const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+const weekOf = (d) => Math.floor((d - START) / DAY / 7) + 1 // 1..13 inside the plan
+const monthOfWeek = (w) => (w <= 4 ? 1 : w <= 8 ? 2 : w <= 12 ? 3 : 4)
+document.getElementById('todayLabel').textContent = fmt(today, { weekday: 'short', day: 'numeric', month: 'short' })
+
+/* ---------- training data ---------- */
+// type: c = compound (big lift), i = isolation (one joint)
+const yt = (id) => `https://www.youtube.com/watch?v=${id}`
+const DAYS = [
+  { key: 'mon', short: 'Mon', name: 'Push A', kind: 'push', focus: 'Chest focus + shoulders + triceps', ex: [
+    { g: 'Chest', n: 'Incline dumbbell press', t: 'Upper chest, front shoulders', type: 'c', reps: '8-12', v: '8iPEnn-ltC8',
+      why: 'The upper chest is the part most guys miss. An incline of about 30 degrees points the press at it, so your chest looks full near the collarbones.',
+      how: ['Bench at 30 degrees, not steeper', 'Feet flat, shoulder blades pinched together', 'Lower slowly till the dumbbells reach chest level, then press up and slightly in'],
+      avoid: 'Bench too high turns it into a shoulder press.' },
+    { g: 'Chest', n: 'Barbell bench press', t: 'Middle chest, triceps', type: 'c', reps: '8-10', v: 'rT7DgCr-3pg',
+      why: 'The classic chest builder. You can slowly add weight every week, which is exactly what makes muscles grow.',
+      how: ['Always have a spotter or use the safety bars', 'Grip a little wider than shoulders', 'Bar touches the middle of your chest, elbows about 45 degrees from your body'],
+      avoid: 'Bouncing the bar off your chest or lifting your hips.' },
+    { g: 'Chest', n: 'Low-to-high cable fly', t: 'Upper and inner chest', type: 'i', reps: '12-15', v: 'KFl3Re5UbPo',
+      why: 'Cables keep tension on the chest the whole way. Moving from low to high hits the upper chest again without tiring your triceps.',
+      how: ['Handles at the lowest setting', 'Slight bend in the elbows, keep it fixed', 'Bring hands up and together in front of your face, squeeze 1 second'],
+      avoid: 'Bending the arms more and more until it becomes a press.' },
+    { g: 'Shoulders', n: 'Seated dumbbell shoulder press', t: 'Front shoulders', type: 'c', reps: '8-12', v: 'qEwKCR5JCog',
+      why: 'Builds strong, round shoulders. Sitting with back support keeps your lower back safe.',
+      how: ['Bench upright, back pressed into it', 'Start with dumbbells at ear level', 'Press up without banging them together at the top'],
+      avoid: 'Leaning far back or arching the lower back.' },
+    { g: 'Shoulders', n: 'Dumbbell lateral raise', t: 'Side shoulders (width)', type: 'i', reps: '12-15', v: 'PzsMitRdI_8',
+      why: 'The side shoulder makes your upper body look wider. It is a small muscle, so it likes light weight and more reps.',
+      how: ['Light dumbbells, slight bend in the elbows', 'Raise out to the sides until arms are level with shoulders', 'Lead with the elbows, lower in 3 seconds'],
+      avoid: 'Swinging your body to throw the weight up.' },
+    { g: 'Triceps', n: 'Overhead cable triceps extension', t: 'Triceps long head', type: 'i', reps: '10-12', v: '57fWTQID-1Y',
+      why: 'The triceps is about two-thirds of your upper arm. The long head grows best when the arm is overhead, because the muscle is stretched there.',
+      how: ['Face away from the cable, rope behind your head', 'Keep elbows pointing forward and close', 'Straighten the arms fully, then let the rope go back slowly'],
+      avoid: 'Elbows flaring out wide.' },
+  ]},
+  { key: 'tue', short: 'Tue', name: 'Pull A', kind: 'pull', focus: 'Back width + rear shoulders + biceps', ex: [
+    { g: 'Back', n: 'Wide-grip lat pulldown', t: 'Lats (upper)', type: 'c', reps: '8-12', v: 'lueEJGjTuPQ',
+      why: 'The lats are the big wing muscles that give the V-shape. Pulldowns train them like a pull-up, but you choose the weight.',
+      how: ['Thighs locked under the pad', 'Grip a bit wider than shoulders', 'Pull the bar to your upper chest, elbows down and back, chest up'],
+      avoid: 'Leaning way back and yanking with your body.' },
+    { g: 'Back', n: 'One-arm dumbbell row', t: 'Lats (lower), middle back', type: 'c', reps: '8-12', v: 'dFzUjzfih7k',
+      why: 'Working one side at a time fixes weak sides and lets you pull further back.',
+      how: ['One knee and one hand on the bench, back flat', 'Pull the dumbbell toward your hip, not your chest', 'Lower until your arm is long and you feel a stretch'],
+      avoid: 'Twisting your body to lift heavier.' },
+    { g: 'Back', n: 'Straight-arm cable pulldown', t: 'Lats (no biceps)', type: 'i', reps: '12-15', v: 'AjCCGN2tU3Q',
+      why: 'Your arms stay straight, so the biceps cannot help. All the work goes to the lats. Great for learning to feel your back.',
+      how: ['Stand back from the cable, slight lean forward', 'Arms straight, push the bar down to your thighs', 'Let it rise slowly till you feel the stretch under your arms'],
+      avoid: 'Bending the elbows so it becomes a triceps pushdown.' },
+    { g: 'Back', n: 'Seated cable row', t: 'Middle back (rhomboids, mid traps)', type: 'c', reps: '10-12', v: 'vwHG9Jfu4sw',
+      why: 'Thickens the middle of your back and helps your posture, which matters if you sit a lot for school.',
+      how: ['Sit tall, small bend in the knees', 'Pull the handle to your belly', 'Squeeze shoulder blades together for 1 second'],
+      avoid: 'Rocking back and forth to move the weight.' },
+    { g: 'Rear shoulders', n: 'Face pull', t: 'Rear shoulders, upper back', type: 'i', reps: '15', v: 'rep-qVOkqgk',
+      why: 'Keeps your shoulders healthy and balanced, because pressing days train the front a lot.',
+      how: ['Rope at face height', 'Pull toward your forehead, hands end beside your ears', 'Think "show your biceps" at the end'],
+      avoid: 'Going too heavy. This one is about control.' },
+    { g: 'Biceps', n: 'Incline dumbbell curl', t: 'Biceps long head (outer, the peak)', type: 'i', reps: '10-12', v: 'soxrZlIl35U',
+      why: 'Lying back puts your arms behind you, which stretches the long head of the biceps. A stretched muscle grows very well.',
+      how: ['Bench at about 45 degrees', 'Arms hang straight down, palms forward', 'Curl up without moving the elbows forward'],
+      avoid: 'Swinging the shoulders to help the curl.' },
+  ]},
+  { key: 'wed', short: 'Wed', name: 'Legs A', kind: 'legs', focus: 'Quads + hamstrings + calves + lower abs', ex: [
+    { g: 'Legs', n: 'Goblet squat', alt: 'Barbell back squat', altFrom: 2, altV: 'aOzrA4FgnM0', t: 'Quads, glutes', type: 'c', reps: '8-12', v: '9W5KAqHfDe8',
+      why: 'The squat trains the biggest muscles in your body. Month 1 uses the goblet squat (holding one dumbbell at your chest) to learn depth and balance. From month 2 you move to the barbell squat.',
+      how: ['Feet shoulder width, toes slightly out', 'Sit down between your heels, chest up', 'Go as low as you can with a flat back, push through the whole foot'],
+      avoid: 'Knees caving in, or heels lifting off the floor.' },
+    { g: 'Legs', n: 'Leg press', t: 'Quads', type: 'c', reps: '10-12', v: 'K5n2vg3oZa4',
+      why: 'Lets you push your legs hard without loading your spine. Safe to train close to failure.',
+      how: ['Feet in the middle of the platform, shoulder width', 'Lower until knees are near your chest, back stays flat on the pad', 'Press up but do not lock the knees hard'],
+      avoid: 'Lower back lifting off the seat at the bottom.' },
+    { g: 'Legs', n: 'Leg extension', t: 'Quads (front thigh)', type: 'i', reps: '12-15', v: 'swZQC689o9U',
+      why: 'The only quad exercise that fully trains the rectus femoris, a quad muscle that squats do not hit well.',
+      how: ['Knee joint lines up with the machine pivot', 'Straighten the legs, squeeze 1 second at the top', 'Lower in 3 seconds'],
+      avoid: 'Kicking the weight up fast.' },
+    { g: 'Legs', n: 'Seated leg curl', t: 'Hamstrings', type: 'i', reps: '10-12', v: 'ELOCsoDSmrg',
+      why: 'Hamstrings are the back of your thigh. Strong hamstrings protect your knees and balance out strong quads.',
+      how: ['Pad just above the ankles', 'Lean your chest slightly forward', 'Curl down fully, come back up slowly'],
+      avoid: 'Hips lifting off the seat.' },
+    { g: 'Calves', n: 'Standing calf raise', t: 'Calves (upper, gastrocnemius)', type: 'i', reps: '10-15', v: 'SVtg-1loH4c',
+      why: 'Standing with straight knees trains the big upper calf muscle.',
+      how: ['Balls of the feet on the edge', 'Drop the heels low and pause 2 seconds in the stretch', 'Rise up high on your toes'],
+      avoid: 'Short bouncy reps.' },
+    { g: 'Core', n: 'Hanging knee raise', t: 'Lower abs, hip flexors', type: 'i', reps: '10-15', v: 'p9hhX_Sx5v0',
+      why: 'Builds lower abs and grip strength at the same time.',
+      how: ['Hang from a bar, body still', 'Bring knees up toward your chest and curl your hips', 'Lower slowly without swinging'],
+      avoid: 'Swinging. Use a captain\'s chair if the bar is too hard.' },
+  ]},
+  { key: 'thu', short: 'Thu', name: 'Push B', kind: 'push', focus: 'Shoulder focus + chest from new angles + triceps', ex: [
+    { g: 'Shoulders', n: 'Machine shoulder press', t: 'Front and side shoulders', type: 'c', reps: '8-12', v: '3R14MnZbcpw',
+      why: 'A different press from Monday. The machine guides the path, so you can push hard safely.',
+      how: ['Handles at shoulder height when you sit', 'Back against the pad', 'Press up, lower slowly to the start'],
+      avoid: 'Seat too low, so the handles start below your chin.' },
+    { g: 'Chest', n: 'Flat dumbbell press', t: 'Middle chest (deep stretch)', type: 'c', reps: '8-12', v: 'VmB1G1K7v94',
+      why: 'Dumbbells go lower than a bar, giving a bigger stretch to the chest. Also fixes left-right differences.',
+      how: ['Flat bench, shoulder blades pinched', 'Lower the dumbbells to the sides of your chest', 'Press up in a slight arc'],
+      avoid: 'Dropping the dumbbells too low with loose shoulders.' },
+    { g: 'Chest', n: 'Assisted dip', t: 'Lower chest, triceps', type: 'c', reps: '8-12', v: 'qf2K1sGixzo',
+      why: 'Dips hit the lower chest, which presses miss. The machine helps lift part of your body weight so you can do clean reps.',
+      how: ['Lean your body slightly forward', 'Lower until elbows are about 90 degrees', 'Push back up. Less assist weight each month'],
+      avoid: 'Going very deep with shoulders rolling forward.' },
+    { g: 'Shoulders', n: 'Cable lateral raise', t: 'Side shoulders', type: 'i', reps: '12-15', v: 'qitQHqNZbeM',
+      why: 'Second side-shoulder exercise of the week. The cable pulls even at the bottom, where dumbbells do not.',
+      how: ['Cable at the lowest point, handle in the far hand', 'Raise out to the side to shoulder height', 'Lower slowly across your body'],
+      avoid: 'Shrugging the shoulder up to your ear.' },
+    { g: 'Chest', n: 'Pec deck fly', t: 'Inner and middle chest', type: 'i', reps: '12-15', v: '3jYo5cMU3d4',
+      why: 'Isolates the chest with almost no triceps. Great finisher after pressing.',
+      how: ['Handles at chest height', 'Bring hands together in a hugging motion', 'Squeeze 1 second, open slowly till you feel the stretch'],
+      avoid: 'Letting the arms fly back too far fast.' },
+    { g: 'Triceps', n: 'Rope triceps pushdown', t: 'Triceps lateral and medial heads', type: 'i', reps: '10-15', v: 'vB5OHsJ3EME',
+      why: 'With arms by your side, the outer heads of the triceps do most of the work. Monday trained the long head, today trains the others.',
+      how: ['Elbows pinned to your sides', 'Push the rope down and spread it apart at the bottom', 'Let it up slowly to about chest level'],
+      avoid: 'Elbows moving forward and back.' },
+  ]},
+  { key: 'fri', short: 'Fri', name: 'Pull B', kind: 'pull', focus: 'Back thickness + traps + biceps short head + forearms', ex: [
+    { g: 'Back', n: 'Chest-supported dumbbell row', t: 'Middle back, rear shoulders', type: 'c', reps: '8-12', v: 'llFTFDwmGcw',
+      why: 'Your chest rests on the bench, so your lower back stays safe and you cannot cheat with your body.',
+      how: ['Incline bench at about 30 degrees, chest on the pad', 'Pull elbows back and up', 'Squeeze shoulder blades together, lower slowly'],
+      avoid: 'Lifting your chest off the pad.' },
+    { g: 'Back', n: 'Close neutral-grip pulldown', t: 'Lats (lower)', type: 'c', reps: '8-12', v: 'E1FK9APxk54',
+      why: 'Palms facing each other lets your elbows travel down close to your body, which hits the lower lats. Tuesday hit them wide.',
+      how: ['Use the V-handle', 'Pull to your upper chest, elbows to your ribs', 'Arms go fully straight at the top for the stretch'],
+      avoid: 'Rounding forward at the bottom.' },
+    { g: 'Rear shoulders', n: 'Reverse pec deck', t: 'Rear shoulders', type: 'i', reps: '12-15', v: 'dC7jhEk-29A',
+      why: 'Rear shoulders make your shoulders look 3D from the side and keep your posture straight.',
+      how: ['Face the machine, chest on the pad', 'Arms straight out, open them wide behind you', 'Pause 1 second, come back slowly'],
+      avoid: 'Using your back by squeezing the shoulder blades too hard.' },
+    { g: 'Traps', n: 'Dumbbell shrug', t: 'Upper traps', type: 'i', reps: '12-15', v: 'cJRVVxmytaM',
+      why: 'The traps sit between your neck and shoulders. Strong traps give a strong look and support the neck.',
+      how: ['Dumbbells at your sides, arms straight', 'Lift shoulders straight up to your ears', 'Hold 1 second, lower all the way'],
+      avoid: 'Rolling the shoulders in circles.' },
+    { g: 'Biceps', n: 'EZ-bar preacher curl', t: 'Biceps short head (inner)', type: 'i', reps: '10-12', v: 'Gydpcouclx8',
+      why: 'Arms in front of you on the pad shift work to the short head (the inner part). Tuesday trained the long head.',
+      how: ['Armpits snug on top of the pad', 'Lower until arms are almost straight', 'Curl up without lifting the elbows'],
+      avoid: 'Dropping fast at the bottom. Control it, this protects the elbow.' },
+    { g: 'Arms', n: 'Dumbbell hammer curl', t: 'Brachialis, forearm (brachioradialis)', type: 'i', reps: '10-12', v: 'zC3nLlEvin4',
+      why: 'The brachialis sits under the biceps. When it grows it pushes the biceps up and makes the whole arm thicker. Also builds the forearm.',
+      how: ['Palms facing your body, like holding a hammer', 'Curl up, elbows stay by your sides', 'Lower slowly'],
+      avoid: 'Swinging the dumbbells.' },
+  ]},
+  { key: 'sat', short: 'Sat', name: 'Legs B', kind: 'legs', focus: 'Glutes + hamstrings + quads + calves + abs', ex: [
+    { g: 'Legs', n: 'Dumbbell Romanian deadlift', t: 'Hamstrings, glutes', type: 'c', reps: '8-10', v: 'hQgFixeXdZo',
+      why: 'Trains the hamstrings when they are stretched, which grows them well. Also teaches you to bend safely using your hips.',
+      how: ['Soft knees, back flat', 'Push your hips back, dumbbells slide down your legs', 'Stop when you feel a big hamstring stretch (around mid-shin), stand up by squeezing glutes'],
+      avoid: 'Rounding your back to reach lower.' },
+    { g: 'Glutes', n: 'Barbell hip thrust', t: 'Glutes', type: 'c', reps: '8-12', v: 'Zp26q4BY5HE',
+      why: 'The best exercise for the glutes, the strongest muscle in the body. Helps sprinting, jumping and back health.',
+      how: ['Upper back on the bench, bar on the hips (use a pad)', 'Feet flat, knees bent at 90 degrees at the top', 'Push hips up, squeeze glutes 1 second, chin tucked'],
+      avoid: 'Arching the lower back at the top.' },
+    { g: 'Legs', n: 'Bulgarian split squat', t: 'Quads, glutes (one leg)', type: 'c', reps: '8-10', per: 'each leg', v: 'SkNsa3eBwLA',
+      why: 'Second quad session of the week. One leg at a time builds balance and fixes a weaker leg.',
+      how: ['Back foot on the bench, front foot about 2 steps forward', 'Drop straight down until the back knee nearly touches the floor', 'Push up through the front foot'],
+      avoid: 'Front heel lifting. Start with body weight in month 1.' },
+    { g: 'Calves', n: 'Seated calf raise', t: 'Calves (lower, soleus)', type: 'i', reps: '12-20', v: '6O5hh1rBtx8',
+      why: 'Bent knees switch the work to the soleus, the deep calf muscle under the gastrocnemius. Wednesday trained the upper calf.',
+      how: ['Pad on your lower thighs', 'Drop the heels low and pause 2 seconds', 'Rise up high, squeeze'],
+      avoid: 'Bouncing.' },
+    { g: 'Core', n: 'Cable crunch', t: 'Upper abs', type: 'i', reps: '12-15', v: '3qjoXDTuyOE',
+      why: 'Abs are a muscle too. Adding weight with the cable makes them grow and show more.',
+      how: ['Kneel facing the cable, rope by your head', 'Curl your ribs down toward your hips', 'Hips stay still, come up slowly'],
+      avoid: 'Sitting back on your heels and pulling with your arms.' },
+    { g: 'Core', n: 'Plank', t: 'Deep core (bracing)', type: 'i', reps: '30-45 s', unit: 'time', v: 'kL_NJAkCQBg',
+      why: 'Teaches you to brace your core, which protects your back in squats and deadlifts.',
+      how: ['Elbows under shoulders', 'Body in one straight line, squeeze glutes', 'Breathe normally'],
+      avoid: 'Hips sagging or sticking up.' },
+  ]},
+  { key: 'sun', short: 'Sun', name: 'Rest', kind: 'rest', focus: 'Recovery day', ex: [] },
+]
+
+/* sets by month: [compound, isolation] + effort */
+const MONTHS = {
+  1: { label: 'Month 1', dates: '23 Nov - 20 Dec', c: 2, i: 2, firstExtra: 1, rir: 3, title: 'Learn the moves',
+       text: 'Light weights, perfect form. Stop each set when you could still do 3 more reps. 3 seconds down on every rep.' },
+  2: { label: 'Month 2', dates: '21 Dec - 17 Jan', c: 3, i: 2, firstExtra: 0, rir: 2, title: 'Build',
+       text: '3 sets on big lifts. Stop with 2 reps left. Goblet squat becomes barbell squat. Add weight when you hit the top reps.' },
+  3: { label: 'Month 3', dates: '18 Jan - 14 Feb', c: 3, i: 3, firstExtra: 1, rir: 1, title: 'Push harder',
+       text: 'First exercise gets 4 sets. Last set of each exercise: stop with only 1 rep left. Keep the form clean.' },
+  4: { label: 'Final week', dates: '15 - 21 Feb', c: 2, i: 1, firstExtra: 0, rir: 4, title: 'Easy week + review',
+       text: 'Same exercises, 2 sets, weights 10 to 20% lighter. Let your body recover, then compare your numbers with week 1.' },
+}
+const setsFor = (ex, idx, m) => {
+  const M = MONTHS[m]
+  return (ex.type === 'c' ? M.c : M.i) + (idx === 0 ? M.firstExtra : 0)
+}
+const restFor = (ex) => (ex.type === 'c' ? 'rest 2-3m' : 'rest 60-90s')
+
+/* ---------- state ---------- */
+const planWeek = today < START ? 1 : today > END ? 13 : weekOf(today)
+let trainMonth = monthOfWeek(planWeek)
+let eatMonth = Math.min(monthOfWeek(planWeek), 3)
+const jsDow = today.getDay() // 0 Sun
+let dayIdx = jsDow === 0 ? 6 : jsDow - 1
+const doneKey = (d, i) => `done-${iso(today)}-${d}-${i}`
+
+/* ---------- views / nav ---------- */
+const views = ['home', 'train', 'eat', 'plan', 'learn']
+function show(v) {
+  views.forEach((n) => document.getElementById('view-' + n).classList.toggle('active', n === v))
+  document.querySelectorAll('nav.tabs button').forEach((b) => b.classList.toggle('on', b.dataset.view === v))
+  window.scrollTo({ top: 0 })
+  store.set('view', v)
+}
+document.querySelectorAll('nav.tabs button').forEach((b) => b.addEventListener('click', () => show(b.dataset.view)))
+addEventListener('scroll', () => document.getElementById('top').classList.toggle('scrolled', scrollY > 4), { passive: true })
+
+/* ---------- today card ---------- */
+function renderToday() {
+  const el = document.getElementById('todayCard')
+  const d = DAYS[dayIdx]
+  if (today < START) {
+    const days = Math.ceil((START - today) / DAY)
+    el.innerHTML = `<div class="eyebrow">Starts Monday 23 November</div>
+      <h2>${days} day${days === 1 ? '' : 's'} to go</h2>
+      <p>Use these days to sleep well, practise the moves with no weight, and stock up on eggs, chicken and oats.</p>
+      <div class="row"><button class="btn light" data-go="train"><i class="ph ph-barbell"></i>See Day 1</button><button class="btn ghost" data-go="learn"><i class="ph ph-book-open-text"></i>Read the basics</button></div>`
+  } else if (today > END) {
+    el.innerHTML = `<div class="eyebrow">Plan complete</div><h2>13 weeks done</h2>
+      <p>Compare your week 13 weight, waist and lifts with week 1. Then repeat the plan with new starting weights.</p>
+      <div class="row"><button class="btn light" data-go="plan"><i class="ph ph-chart-line-up"></i>See progress</button></div>`
+  } else {
+    const M = MONTHS[monthOfWeek(planWeek)]
+    const pct = Math.round(((today - START) / DAY + 1) / 91 * 100)
+    el.innerHTML = `<div class="eyebrow">Week ${planWeek} of 13 · ${M.title}</div>
+      <h2>${d.kind === 'rest' ? 'Rest day' : 'Today: ' + d.name}</h2>
+      <p>${d.kind === 'rest' ? 'Walk 30 minutes, stretch, eat well and sleep early.' : d.focus}</p>
+      <div class="row">${d.kind === 'rest' ? '' : '<button class="btn light" data-go="train"><i class="ph ph-play"></i>Start workout</button>'}<button class="btn ghost" data-go="eat"><i class="ph ph-bowl-food"></i>Today\'s food</button></div>
+      <div class="progress" aria-label="Plan progress ${pct}%"><i style="width:${pct}%"></i></div>`
+  }
+  el.querySelectorAll('[data-go]').forEach((b) => b.addEventListener('click', () => show(b.dataset.go)))
+}
+
+/* ---------- train ---------- */
+function seg(el, cur, set, keys = [1, 2, 3, 4], labels = (k) => MONTHS[k].label) {
+  el.innerHTML = keys.map((k) => `<button data-k="${k}" class="${k === cur ? 'on' : ''}">${labels(k)}</button>`).join('')
+  el.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => set(+b.dataset.k)))
+}
+function renderTrain() {
+  seg(document.getElementById('monthSegTrain'), trainMonth, (k) => { trainMonth = k; renderTrain() }, [1, 2, 3, 4], (k) => (k === 4 ? 'Wk 13' : 'M' + k))
+  const M = MONTHS[trainMonth]
+  document.getElementById('monthNoteTrain').innerHTML = `<i class="ph ph-info"></i><div><b>${M.label} · ${M.dates}: ${M.title}.</b> ${M.text}</div>`
+
+  const chips = document.getElementById('dayChips')
+  chips.innerHTML = DAYS.map((d, i) => `<button class="chip ${i === dayIdx ? 'on' : ''}" data-i="${i}"><small>${d.short}</small><b>${d.name}</b></button>`).join('')
+  chips.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { dayIdx = +b.dataset.i; renderTrain() }))
+
+  const d = DAYS[dayIdx]
+  const view = document.getElementById('dayView')
+  if (d.kind === 'rest') {
+    view.innerHTML = `<div class="dayhead"><h2>Sunday · Rest</h2><span class="tag rest">Recovery</span></div>
+      <div class="card"><div class="goal"><span class="ic"><i class="ph ph-person-simple-walk"></i></span><div><b>Walk 30 to 45 minutes</b><span>Easy pace. Keeps your heart healthy and body fat low without tiring your muscles.</span></div></div>
+      <div class="goal"><span class="ic"><i class="ph ph-person-simple-tai-chi"></i></span><div><b>10 minutes of stretching</b><span>Hips, hamstrings, chest and shoulders.</span></div></div>
+      <div class="goal"><span class="ic"><i class="ph ph-moon-stars"></i></span><div><b>Sleep 8 to 10 hours</b><span>This is when muscle is actually built.</span></div></div>
+      <div class="goal"><span class="ic"><i class="ph ph-bowl-food"></i></span><div><b>Eat the full diet</b><span>Do not cut food on rest days. Your body is repairing.</span></div></div></div>`
+    return
+  }
+  const rows = d.ex.map((ex, i) => {
+    const useAlt = ex.alt && trainMonth >= ex.altFrom
+    const name = useAlt ? ex.alt : ex.n
+    const vid = useAlt ? ex.altV : ex.v
+    const sets = setsFor(ex, i, trainMonth)
+    const reps = trainMonth === 3 && ex.type === 'c' && /8-12|8-10/.test(ex.reps) && i === 0 ? '6-10' : ex.reps
+    const done = store.get(doneKey(d.key, i), false)
+    return `<tr class="ex ${done ? 'done' : ''}" data-i="${i}" aria-expanded="false">
+        <td class="group">${ex.g}</td>
+        <td><span class="exname">${name}</span><span class="sub"><i class="ph ph-caret-down"></i>Details</span></td>
+        <td class="small tgt">${ex.t}</td>
+        <td class="reps"><b>${sets} × ${reps}</b>${ex.per ? `<span>${ex.per}</span>` : ''}<span>${restFor(ex)}</span></td>
+        <td><a class="vid" href="${yt(vid)}" target="_blank" rel="noopener" aria-label="Watch ${name} on YouTube" onclick="event.stopPropagation()"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/${vid}/mqdefault.jpg"><i class="ph-fill ph-play"></i></a></td>
+      </tr>
+      <tr class="detail" data-for="${i}" hidden><td colspan="5"><div class="why">
+        <h4>Why it matters</h4><p>${ex.why}</p>
+        <h4>How to do it</h4><ul>${ex.how.map((h) => `<li>${h}</li>`).join('')}</ul>
+        <h4>Avoid</h4><p>${ex.avoid}</p>
+        <h4>Effort</h4><p>${ex.unit === 'time' ? 'Hold with perfect form. Add 5 seconds each week.' : `Stop each set with about ${MONTHS[trainMonth].rir} reps left in the tank. When you hit the top of the rep range on all sets, add a little weight next time (2.5 kg on bars, 1 to 2 kg on dumbbells).`}</p>
+        <div class="actions"><button class="check ${done ? 'on' : ''}" data-done="${i}"><i class="ph ${done ? 'ph-check-circle' : 'ph-circle'}"></i>${done ? 'Done today' : 'Mark done'}</button><a class="btn outline" href="${yt(vid)}" target="_blank" rel="noopener"><i class="ph ph-youtube-logo"></i>Watch video</a></div>
+      </div></td></tr>`
+  }).join('')
+  const doneCount = d.ex.filter((_, i) => store.get(doneKey(d.key, i), false)).length
+  view.innerHTML = `<div class="dayhead"><div><h2>${d.name}</h2><span class="muted small">${d.focus}</span></div><span class="tag ${d.kind}">${d.kind}</span></div>
+    <div class="note"><i class="ph ph-fire"></i><div><b>Warm up first:</b> 5 minutes easy cycling or skipping, then 2 light sets of the first exercise (10 reps, then 6 reps). Today: ${doneCount} of ${d.ex.length} done.</div></div>
+    <div class="tablecard"><table>
+      <thead><tr><th>Muscle group</th><th>Exercise</th><th>Target muscle</th><th>Sets × reps</th><th>Video</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>
+    <p class="small muted" style="margin:10px 2px 0">Tap any exercise to see why it matters and how to do it. Every rep: 3 seconds down, short pause, 1 second up. About 60 to 70 minutes in total.</p>`
+
+  view.querySelectorAll('tr.ex').forEach((tr) => tr.addEventListener('click', () => {
+    const det = view.querySelector(`tr.detail[data-for="${tr.dataset.i}"]`)
+    det.hidden = !det.hidden
+    tr.setAttribute('aria-expanded', String(!det.hidden))
+    tr.querySelector('.sub i').className = 'ph ' + (det.hidden ? 'ph-caret-down' : 'ph-caret-up')
+  }))
+  view.querySelectorAll('[data-done]').forEach((b) => b.addEventListener('click', () => {
+    const k = doneKey(d.key, +b.dataset.done)
+    store.set(k, !store.get(k, false))
+    const open = [...view.querySelectorAll('tr.detail')].filter((r) => !r.hidden).map((r) => r.dataset.for)
+    renderTrain()
+    open.forEach((i) => { const r = document.querySelector(`#dayView tr.detail[data-for="${i}"]`); if (r) r.hidden = false })
+  }))
+}
+
+/* ---------- diet ---------- */
+const MEALS = {
+  1: [
+    { n: 1, time: '7:00 am', name: 'Breakfast', food: 'Eggs + roti + milk', kcal: 619, p: 34, c: 56, f: 28, qty: ['3 whole eggs (boiled, or fried in 1 tsp ghee)', '2 roti', '1 glass full-cream milk (250 ml)'] },
+    { n: 2, time: '10:30 am', name: 'School snack', food: 'Roasted chana + apple', kcal: 206, p: 7, c: 42, f: 2, qty: ['30 g roasted chana (1 small handful)', '1 apple'] },
+    { n: 3, time: '1:30 pm', name: 'Lunch', food: 'Rice + dal + chicken curry + salad', kcal: 736, p: 40, c: 106, f: 14, qty: ['250 g cooked rice (about 2 katori)', '1 katori dal', '100 g chicken curry (raw weight)', 'Cucumber + carrot salad'] },
+    { n: 4, time: '4:30 pm', name: 'Pre-workout', food: 'Pintola protein oats + banana + peanut butter', kcal: 395, p: 17, c: 59, f: 12, qty: ['50 g Pintola High Protein Oats cooked in water', '1 banana', '1 tbsp peanut butter'], tip: 'Eat 60 to 90 minutes before the gym. Carbs give energy for the workout.' },
+    { n: 5, time: '7:30 pm', name: 'Post-workout dinner', food: 'Roti + chicken / kheema / beef + sabzi + salad', kcal: 642, p: 38, c: 90, f: 14, qty: ['3 roti', '100 g chicken curry (raw weight). Kheema or beef sometimes', '1 katori veg sabzi', 'Salad'], tip: 'Eat within 1 to 2 hours after training. Protein + carbs help muscles repair.' },
+    { n: 6, time: '10:00 pm', name: 'Bedtime', food: 'Milk + banana', kcal: 225, p: 8, c: 37, f: 7, qty: ['1 glass milk (200 ml)', '1 banana'], tip: 'Milk protein digests slowly and feeds your muscles through the night.' },
+  ],
+}
+MEALS[2] = MEALS[1].map((m) => m.n === 3 ? { ...m, kcal: 801, p: 41, c: 120, f: 14, qty: ['300 g cooked rice (about 2.5 katori)', ...m.qty.slice(1)], plus: true }
+  : m.n === 6 ? { ...m, food: 'Milk + banana + peanut butter', kcal: 320, p: 12, c: 40, f: 15, qty: [...m.qty, '1 tbsp peanut butter'], plus: true } : m)
+MEALS[3] = MEALS[2].map((m) => m.n === 5 ? { ...m, kcal: 746, p: 42, c: 111, f: 15, qty: ['4 roti', ...m.qty.slice(1)], plus: true } : m)
+const TARGET = { 1: { kcal: 2823, note: 'Start here. About 220 kcal above maintenance: enough to build muscle, small enough to stay lean.' },
+  2: { kcal: 2983, note: 'You weigh a bit more now, so you need a bit more food. Added: 50 g rice at lunch + 1 tbsp peanut butter at night.' },
+  3: { kcal: 3087, note: 'Added 1 more roti at dinner. Only follow this if your weekly weight gain is on track (see Plan).' } }
+
+function ringSVG(val, max, color) {
+  const r = 27, c = 2 * Math.PI * r, p = Math.min(val / max, 1)
+  return `<svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="${r}" fill="none" stroke="#eef1ec" stroke-width="7"/><circle cx="32" cy="32" r="${r}" fill="none" stroke="${color}" stroke-width="7" stroke-linecap="round" stroke-dasharray="${c * p} ${c}"/></svg>`
+}
+function renderEat() {
+  seg(document.getElementById('monthSegEat'), eatMonth, (k) => { eatMonth = k; renderEat() }, [1, 2, 3], (k) => MONTHS[k].label)
+  const meals = MEALS[eatMonth]
+  const t = meals.reduce((a, m) => ({ kcal: a.kcal + m.kcal, p: a.p + m.p, c: a.c + m.c, f: a.f + m.f }), { kcal: 0, p: 0, c: 0, f: 0 })
+  document.getElementById('kcalTotal').textContent = `${MONTHS[eatMonth].dates}`
+  document.getElementById('rings').innerHTML = [
+    ['kcal', t.kcal, 3200, '#3f7a64', t.kcal.toLocaleString()],
+    ['protein', t.p, 170, '#5e4a7c', t.p + 'g'],
+    ['carbs', t.c, 450, '#7a5a33', t.c + 'g'],
+    ['fat', t.f, 100, '#40557e', t.f + 'g'],
+  ].map(([l, v, mx, col, txt]) => `<div><div class="ring">${ringSVG(v, mx, col)}<b>${txt}</b></div><small>${l}</small></div>`).join('')
+  document.getElementById('monthNoteEat').innerHTML = `<i class="ph ph-info"></i><div>${TARGET[eatMonth].note}</div>`
+  const dk = (n) => `meal-${iso(today)}-${n}`
+  document.getElementById('mealRows').innerHTML = meals.map((m) => {
+    const done = store.get(dk(m.n), false)
+    return `<tr class="meal ${done ? 'done' : ''}" data-n="${m.n}" style="cursor:pointer" title="Tap to mark eaten">
+      <td><span class="meal-n">${done ? '<i class="ph ph-check"></i>' : m.n}</span></td>
+      <td class="food"><b>${m.name}</b><span>${m.time} · ${m.food}</span>${m.tip ? `<span style="color:var(--accent-ink)">${m.tip}</span>` : ''}</td>
+      <td><div class="macros"><b>${m.kcal} kcal</b><span>P ${m.p}g</span><span>C ${m.c}g</span><span>F ${m.f}g</span></div></td>
+      <td class="qty"><ul>${m.qty.map((q) => `<li>${q}</li>`).join('')}</ul></td></tr>`
+  }).join('') + `<tr><td></td><td class="food"><b>Total</b><span>Protein about ${(t.p / 63).toFixed(1)} g per kg</span></td><td><div class="macros"><b>${t.kcal.toLocaleString()} kcal</b><span>P ${t.p}g</span><span>C ${t.c}g</span><span>F ${t.f}g</span></div></td><td class="qty">Tap a meal to tick it off</td></tr>`
+  document.querySelectorAll('#mealRows tr.meal').forEach((tr) => tr.addEventListener('click', () => {
+    const k = dk(tr.dataset.n); store.set(k, !store.get(k, false)); renderEat()
+  }))
+  // water
+  const wk = `water-${iso(today)}`, w = store.get(wk, 0)
+  const water = document.getElementById('water')
+  water.innerHTML = Array.from({ length: 12 }, (_, i) => `<button class="glass ${i < w ? 'on' : ''}" data-i="${i}" aria-label="Glass ${i + 1}"><i class="ph${i < w ? '-fill' : ''} ph-drop"></i></button>`).join('')
+  water.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => {
+    const i = +b.dataset.i; store.set(wk, i < w ? i : i + 1); renderEat()
+  }))
+}
+
+/* ---------- plan ---------- */
+const WEEK_NOTES = {
+  1: 'Learn every exercise. Write down the weights you use.', 2: 'Same weights, smoother reps.', 3: 'Add a little weight where reps felt easy.', 4: 'Finish month 1. Take photos and measure your waist.',
+  5: 'Start barbell squats with an empty bar. 3 sets on big lifts.', 6: 'Beat last week by 1 rep or a little weight.', 7: 'Keep adding. Sleep is your secret weapon.', 8: 'End of month 2: compare photos and lifts.',
+  9: '4 sets on the first exercise of each day.', 10: 'Last set: stop 1 rep before failure.', 11: 'Your strongest weeks. Stay strict on form.', 12: 'Last hard week. Note your best numbers.',
+  13: 'Easy week: 2 sets, lighter weights. Compare everything with week 1.' }
+function renderPlan() {
+  const phases = { 1: ['Month 1 · Learn the moves', '2 sets, light weights, 3 reps left in the tank. Goal: perfect technique.'],
+    2: ['Month 2 · Build', '3 sets on big lifts, 2 reps left. Barbell squat starts. Food goes up slightly.'],
+    3: ['Month 3 · Push harder', 'Extra set on the first lift, last sets 1 rep from failure. Food up again if gaining slowly.'],
+    4: ['Week 13 · Easy week + review', 'Recover, then test where you are.'] }
+  let html = '', lastM = 0
+  for (let w = 1; w <= 13; w++) {
+    const m = monthOfWeek(w)
+    if (m !== lastM) { html += `<div class="phase"><b>${phases[m][0]}</b><span>${phases[m][1]}</span></div>`; lastM = m }
+    const s = new Date(+START + (w - 1) * 7 * DAY), e = new Date(+s + 6 * DAY)
+    const cls = today >= s && today <= e ? 'now' : today > e ? 'past' : ''
+    html += `<div class="week m${m} ${cls}"><div class="num"><small>WEEK</small><b>${w}</b></div><div class="info"><b>${fmt(s)} - ${fmt(e)}${cls === 'now' ? ' · this week' : ''}</b><span>${WEEK_NOTES[w]}</span></div></div>`
+  }
+  document.getElementById('timeline').innerHTML = html
+  renderWeights()
+}
+function renderWeights() {
+  const log = store.get('weights', [])
+  const byWeek = {}
+  log.forEach(({ d, kg }) => { const w = Math.max(0, weekOf(new Date(d + 'T00:00'))); (byWeek[w] ||= []).push(kg) })
+  const wName = (w) => (w < 1 ? 'Starting' : `Week ${w}`) // weigh-ins before 23 Nov count as the starting point
+  const avgs = Object.entries(byWeek).map(([w, a]) => [+w, a.reduce((x, y) => x + y, 0) / a.length]).sort((a, b) => a[0] - b[0])
+  let advice = ''
+  if (avgs.length >= 2) {
+    const [, prev] = avgs[avgs.length - 2], [wk, cur] = avgs[avgs.length - 1], diff = cur - prev
+    const msg = diff < 0.2 ? ['warn', 'Gaining slowly. If this happens 2 weeks in a row, add about 150 kcal a day.']
+      : diff > 0.5 ? ['warn', 'Gaining fast. If this happens 2 weeks in a row, remove about 150 kcal a day.']
+      : ['', 'Right on track. Change nothing.']
+    advice = `<div class="note ${msg[0]}"><i class="ph ph-chart-line-up"></i><div><b>${wName(wk)} average: ${cur.toFixed(1)} kg (${diff >= 0 ? '+' : ''}${diff.toFixed(2)} kg).</b> ${msg[1]}</div></div>`
+  } else if (avgs.length === 1) {
+    advice = `<div class="note"><i class="ph ph-chart-line-up"></i><div><b>${wName(avgs[0][0])} average: ${avgs[0][1].toFixed(1)} kg.</b> Keep logging. Advice appears after 2 weeks.</div></div>`
+  }
+  document.getElementById('wAdvice').innerHTML = advice
+  document.getElementById('wLog').innerHTML = log.slice().sort((a, b) => b.d.localeCompare(a.d)).slice(0, 14)
+    .map((r) => `<div class="r"><span>${fmt(new Date(r.d + 'T00:00'), { weekday: 'short', day: 'numeric', month: 'short' })}</span><span><b>${r.kg.toFixed(1)} kg</b> <button aria-label="Delete" data-d="${r.d}"><i class="ph ph-x"></i></button></span></div>`).join('')
+  document.querySelectorAll('#wLog [data-d]').forEach((b) => b.addEventListener('click', () => {
+    store.set('weights', store.get('weights', []).filter((r) => r.d !== b.dataset.d)); renderWeights()
+  }))
+}
+document.getElementById('wDate').value = iso(today)
+document.getElementById('wAdd').addEventListener('click', () => {
+  const d = document.getElementById('wDate').value, kg = parseFloat(document.getElementById('wKg').value)
+  if (!d || !(kg > 30 && kg < 150)) { document.getElementById('wKg').focus(); return }
+  const log = store.get('weights', []).filter((r) => r.d !== d); log.push({ d, kg })
+  store.set('weights', log); document.getElementById('wKg').value = ''; renderWeights()
+})
+
+/* ---------- learn ---------- */
+const LEARN = [
+  ['ph-lightbulb', 'How muscle actually grows', `<p>Lifting does not build muscle during the workout. It gives your muscle a <b>signal</b>: "this was hard, get stronger". Then two things do the building:</p>
+    <ul><li><b>Food</b>, especially protein, gives the bricks.</li><li><b>Sleep</b> is when the builders work. Teens need 8 to 10 hours.</li></ul>
+    <p>Train hard, eat enough, sleep enough. Skip any one and growth slows down.</p>`],
+  ['ph-arrows-clockwise', 'Why every muscle twice a week', `<p>After a workout, the "build" signal lasts about 1 to 2 days. Training a muscle twice a week keeps it growing more often than once a week.</p>
+    <p>So the week goes <b>Push, Pull, Legs, Push, Pull, Legs</b>. The second time, you use different exercises and angles so each part of the muscle gets trained. Example: Tuesday curls hit the outer biceps (long head), Friday curls hit the inner biceps (short head) and the brachialis.</p>`],
+  ['ph-hash', 'Sets and reps, simply', `<p>A <b>rep</b> is one lift up and down. A <b>set</b> is a group of reps done in a row, then you rest.</p>
+    <p><b>"3 × 10"</b> means 3 sets of 10 reps.</p>
+    <p><b>Why 8 to 15 reps?</b> Research shows muscle grows across many rep ranges as long as the set is hard. 8 to 15 reps is heavy enough to grow, light enough to keep good form and protect growing joints. Small muscles like side shoulders and calves use 12 to 20 because they respond well to more reps.</p>
+    <p><b>Why only 2 to 4 sets?</b> More is not always better. About 10 to 16 hard sets per muscle per week is plenty for a beginner, and this plan gives you exactly that.</p>`],
+  ['ph-timer', 'Controlled reps (the 3-1-1 rule)', `<p>Every rep has 3 parts. Do them like this:</p>
+    <div class="tempo"><div><b>3 s</b><span>lower slowly</span></div><div><b>1 s</b><span>pause at the stretch</span></div><div><b>1 s</b><span>lift with power</span></div></div>
+    <p><b>Why slow on the way down?</b> The lowering part builds a lot of muscle, and controlling it keeps the work on the muscle instead of momentum. Swinging means your joints and other muscles are doing the job, and that is how people get hurt.</p>`],
+  ['ph-battery-medium', 'Reps in reserve: how hard to push', `<p>"Reps in reserve" means how many more reps you <b>could</b> have done when you stop the set.</p>
+    <ul><li><b>Month 1:</b> stop with 3 left. You are learning.</li><li><b>Month 2:</b> stop with 2 left.</li><li><b>Month 3:</b> last set, stop with 1 left.</li></ul>
+    <p>You almost never need to go to total failure, where your form breaks. Close to failure grows muscle just as well, with much less risk.</p>`],
+  ['ph-trend-up', 'Progressive overload: the secret', `<p>Your body only changes if the work gets a bit harder over time. We use the <b>double progression</b> rule:</p>
+    <ul><li>Each exercise has a rep range, like 8 to 12.</li><li>Use a weight where you get 8. Each week try to add reps.</li><li>When you get <b>12 on every set with good form</b>, add a little weight next time (2.5 kg on a bar, 1 to 2 kg on dumbbells) and you are back at 8.</li></ul>
+    <p>Write your weights and reps in your phone notes after every exercise. If the numbers go up over the weeks, you are growing.</p>`],
+  ['ph-hourglass', 'Rest between sets', `<p><b>Big lifts</b> (presses, rows, squats): rest 2 to 3 minutes. <b>Small lifts</b> (curls, raises): 60 to 90 seconds.</p>
+    <p>Resting enough lets you do more good reps in the next set, and more good reps means more growth. Do not rush.</p>`],
+  ['ph-fire', 'Warm-up (never skip)', `<ul><li>5 minutes easy cycling, skipping or brisk walking.</li><li>Arm circles, leg swings, 10 bodyweight squats.</li><li>2 light warm-up sets on the first exercise: 10 reps very light, then 6 reps medium.</li></ul>
+    <p>Warm muscles are stronger and much less likely to get injured.</p>`],
+  ['ph-moon-stars', 'Sleep: where muscle is built', `<p>The American Academy of Sleep Medicine says teens need <b>8 to 10 hours</b> every night. Growth hormone is released mostly during deep sleep.</p>
+    <ul><li>Same bedtime every night, even on weekends.</li><li>Phone away 30 minutes before bed.</li><li>No tea or coffee after 4 pm.</li></ul>`],
+  ['ph-egg', 'Food basics', `<p><b>Protein</b> builds and repairs muscle: eggs, chicken, dal, milk, chana, oats. Spread it over the day in every meal.</p>
+    <p><b>Carbs</b> (rice, roti, oats, fruit) are your fuel for training. Without them workouts feel weak.</p>
+    <p><b>Fats</b> (ghee, peanut butter, eggs) keep hormones healthy. Some is good, too much adds body fat fast.</p>
+    <p>Your protein is about 2.3 g per kg, a little above the usual 1.2 to 2.0 g per kg for teen athletes. That is because normal home food (eggs, chicken, dal, milk) naturally adds up. It is safe, and you do not need protein powder.</p>`],
+  ['ph-shield-check', 'Safety rules for a 17-year-old', `<ul><li><b>Form first, weight second.</b> Ego lifting is the number 1 cause of gym injuries.</li>
+    <li><b>Never test your 1-rep max.</b> It is not needed to grow.</li>
+    <li><b>Use a spotter or safety bars</b> on bench press and squats.</li>
+    <li><b>Ask a gym trainer</b> to check your form on squats, Romanian deadlifts and bench press in the first week.</li>
+    <li><b>Sharp pain = stop.</b> Muscle burn and next-day soreness are normal. Joint pain is not.</li>
+    <li><b>No steroids, fat burners, pre-workouts or creatine.</b> Paediatric doctors advise against them under 18. Food is enough.</li>
+    <li>Feeling very tired, sleeping badly, or strength going down for 2 weeks? Take 3 to 4 easy days.</li></ul>`],
+  ['ph-person-simple-walk', 'Cardio and steps', `<p>Walk 7,000 to 10,000 steps a day and do 30 to 45 minutes of easy walking on Sunday. This keeps your heart healthy and body fat low. Avoid long hard runs on leg days: they can eat into your recovery.</p>`],
+]
+document.getElementById('learn').innerHTML = LEARN.map(([ic, t, b], i) =>
+  `<details class="acc"${i === 0 ? ' open' : ''}><summary><span class="ic"><i class="ph ${ic}"></i></span>${t}<i class="ph ph-caret-down chev"></i></summary><div class="body">${b}</div></details>`).join('')
+
+/* ---------- boot ---------- */
+renderToday(); renderTrain(); renderEat(); renderPlan()
+const lastView = store.get('view', 'home'); if (views.includes(lastView) && lastView !== 'home') show(lastView)
+</script>
+</body>
+</html>
